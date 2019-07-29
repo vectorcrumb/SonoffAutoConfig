@@ -1,1 +1,6 @@
 .vscode/
+bin/
+tasmota/
+src-tasmota/
+build.log
+*/__pycache__/
