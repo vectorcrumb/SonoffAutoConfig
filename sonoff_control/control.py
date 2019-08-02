@@ -1,4 +1,4 @@
-import requests, json
+import requests, json, time
 from typing import Tuple, List
 
 URL_TEMPLATE_GET = "http://{}/cm?cmnd=Template"
@@ -84,3 +84,17 @@ class SonoffController():
             req = requests.get(URL_POWER.format(self.addr, chan, int(state)))
             status_codes.append(req.status_code)
         return tuple(status_codes)
+
+    def open(self, timer=30):
+        self.set_state([True, False])
+        t = time.time()
+        while(time.time() < t + timer):
+            pass
+        self.set_state([False, False])
+    
+    def close(self, timer=30):
+        self.set_state([False, True])
+        t = time.time()
+        while(time.time() < t + timer):
+            pass
+        self.set_state([False, False])

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Install dependencies
-sudo apt install python3 python3-pip git unzip
+sudo apt install python3 python3-pip git unzip python3-venv
 # Create a new virtual env
 python3 -m venv tasmota
 # Activate, upgrade pip, install platformio and esptool
@@ -16,5 +16,5 @@ unzip Sonoff-Tasmota.zip
 mv Sonoff-Tasmota-development src-tasmota
 # Final steps
 mkdir bin
-sudo usermod -a -G dialout $usermod
+sudo usermod -a -G dialout $USER
 echo "Debe reinicar el computador."

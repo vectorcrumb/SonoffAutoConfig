@@ -7,6 +7,7 @@ Este repositorio contiene software que permite configurar una red WiFi en el fir
 1. Ejecutar `. install_env.sh` o `source install_env.sh`.
 2. Reinicar computador. Verificar que el usuario que vaya usar se encuentre en el grupo `dialout` mediante el comando `id`.
 3. Activar ambiente virtual corriendo `. tasmota/bin/activate`. El terminal incluira un `(tasmota)` al comienzo de cada linea.
+  a. Si es la primera vez que instala el ambiente virtual, debe instalar los requisitos mediante el comando `pip install -r requirements.txt`.
 4. Ejecutar configurador mediante `python config_tasmota.py -s <SSID> -p <Clave>`. Si necesita ayuda, ejecute `python config_tasmota.py -h`.
 5. El codigo `example.py` contiene un ejemplo de uso de la libreria `sonoff_control`. Si necesita mas ayuda, revise la documentacion presente en `sonoff_control/control.py`.
 6. Si desea eliminar los directorios y ambientes creados, ejecutar `. clean.sh`
