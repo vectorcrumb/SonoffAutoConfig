@@ -37,7 +37,11 @@ if not args.skip_compilation:
 
     wifi_credentials = {
         'ssid': args.ssid,
-        'pass': args.password
+        'pass': args.password,
+        'wifi_static_ip': "192.168.1.8",
+        'wifi_gateway': "192.168.1.1",
+        'wifi_subnetmask': "255.255.255.0",
+        'wifi_dns': "192.168.1.1"
     }
 
     user_config_override_content = """
@@ -55,6 +59,18 @@ if not args.skip_compilation:
     #define STA_SSID1         "{ssid}"             // [Ssid1] Wifi SSID
     #undef  STA_PASS1
     #define STA_PASS1         "{pass}"     // [Password1] Wifi password
+    
+    #undef WIFI_IP_ADDRESS
+    #define WIFI_IP_ADDRESS "{wifi_static_ip}"
+
+    #undef WIFI_GATEWAY
+    #define WIFI_GATEWAY "{wifi_gateway}"
+
+    #undef WIFI_SUBNETMASK
+    #define WIFI_SUBNETMASK "{wifi_subnetmask}"
+
+    #undef WIFI_DNS
+    #define WIFI_DNS "{wifi_dns}"
 
     // -- Set module template  ------------------------
     #undef  MODULE
@@ -82,6 +98,7 @@ if not args.skip_compilation:
         data_config = mucfile.readlines()
     data_config[38] = "#define USE_CONFIG_OVERRIDE   // Uncomment to use user_config_override.h file. See README.md\n"
     data_config[52] = "#define MODULE SONOFF_DUAL_R2  // [Module] Select default model from sonoff_template.h\n"
+
     with open(muconfig_file, 'w') as mucfile:
         mucfile.writelines(data_config)
 
