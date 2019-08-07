@@ -1,5 +1,5 @@
 import requests, json, time
-from typing import Tuple, List
+
 
 URL_TEMPLATE_GET = "http://{}/cm?cmnd=Template"
 URL_TEMPLATE_SET = "http://{}/cm?cmnd=Template%20{}"
@@ -13,12 +13,12 @@ class SonoffInitException(Exception):
 
 class SonoffController():
 
-    def __init__(self, ip: str):
+    def __init__(self, ip):
         self.addr = ip
         self.template_init = False
         self.connected = False
     
-    def _check_connection(self) -> bool:
+    def _check_connection(self):
         """Checks to see if a connection can be established to the Sonoff relay. 
         This is done by sending a request to the Sonoff relay and then checking for a 
         200 HTTP status code on the response.
@@ -29,7 +29,7 @@ class SonoffController():
         status = requests.get(URL_TEMPLATE_GET.format(self.addr)).status_code
         return status == 200
     
-    def _check_init_state(self) -> bool:
+    def _check_init_state(self):
         """Checks to see if the Sonoff Dual R2 template has already been configured.
         This is a workaround due to not being able to set a template during the firmware
         building process.
@@ -40,7 +40,7 @@ class SonoffController():
         respj = requests.get(URL_TEMPLATE_GET.format(self.addr)).json()
         return respj['NAME'] == "Sonoff Dual R2"
     
-    def _ready(self) -> bool:
+    def _ready(self):
         """Helper function to indicate if both initialization checks are completed
         
         Returns:
@@ -48,7 +48,7 @@ class SonoffController():
         """
         return self.template_init and self.connected
     
-    def initialize(self) -> bool:
+    def initialize(self):
         """Function to initialize Sonoff relay.
         URL_POWER
         Raises:
@@ -67,7 +67,7 @@ class SonoffController():
             raise SonoffInitException("Cannot set template on Sonoff relay.")
         return True
 
-    def set_state(self, states=[False, False]) -> Tuple[int, int]:
+    def set_state(self, states=[False, False]):
         """Set states of both relays at a time.
         
         Keyword Arguments:
